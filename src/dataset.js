@@ -483,7 +483,7 @@ Version 0.0.1.2
       // don't attempt tp remove the rows while iterating over them
       // since that modifies the length of the dataset and thus
       // terminates the each loop early. 
-      _.each(rowsToRemove, function(rowId) {
+      _.each(rowsToRemove.reverse(), function(rowId) {
         this._remove(rowId);  
       }, this);
       

@@ -75,6 +75,26 @@
     ok( ds._rowIdByPosition[0] !== firstRowId );
     equals(ds.length, 2);
   });
+  
+  
+   test("removing multiple rows with a function", function() {
+    // this was failing before the rows were not reverse before removing
+    // removing the two first line was indeed removing the first and 3rd
+    var ds = Util.baseSample();
+    var firstRowId = ds._rowIdByPosition[0];
+    var secondRowId = ds._rowIdByPosition[1];
+    
+    equals(ds.length, 3);
+    ds.remove(function(row) { return (row.one <= 2); });
+    
+    strictEqual( ds._rowPositionById[firstRowId], undefined );
+    strictEqual( ds._rowPositionById[secondRowId], undefined );
+    
+    equals(ds.length, 1);
+    ok(_.isEqual(ds.column("one").data, [3]));
+    ok(_.isEqual(ds.column("two").data, [6]));
+  });
+
 
   test("updating a row with an incorrect type", function() {
     var ds = Util.baseSample();
