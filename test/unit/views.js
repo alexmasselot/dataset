@@ -233,6 +233,61 @@
     equals(view.max("three"), 9);
     equals(view.min(["three"]), 7);
   });
+  
+
+  test("Basic view with adding a line to original dataset does not change if sync:false", function() {
+    var ds = Util.baseSample();
+    var view = ds.where({});
+    equal(view.length, 3, 'original view contains 3 lines');
+
+    ds.add({one:10, two:11, three:12});
+    equal(view.length, 3, 'adding one line doe not change the view');
+   });
+
+  test("Basic view with adding a line to original dataset, sync:true", function() {
+    var ds = Util.baseSyncingSample();
+    var view = ds.where({
+      rows:function(row){
+        return row.one>2
+      }
+    });
+    equal(view.length, 1, 'original view contains 1 lines');
+
+    ds.add({one:10, two:11, three:12});
+    ok(_.isEqual(view.column('three').data, [9,12]), 'adding one line to dataset flushes it to the to view');
+   });
+
+
+  test("derived view, filtered on reported column, adding a line - issue 207", function() {
+    var ds = Util.baseSyncingSample();
+    
+    var view = ds.where({
+      columns:['three'],
+      rows:function(row){
+        return row.three>8;
+      }
+    });
+
+    ds.add({one:10, two:11, three:12});
+    ds.add({one:-10, two:-11, three:-12});
+    ok(_.isEqual(view.column('three').data, [9,12]), 'adding one line to dataset adds one to view');
+  });
+   
+  test("derived view, filtered on ureported column, adding a line - issue 207", function() {
+    var ds = Util.baseSyncingSample();
+    
+    var view = ds.where({
+      columns:['three'],
+      rows:function(row){
+        return row.one>2;
+      }
+    });
+
+    ds.add({one:10, two:11, three:12});
+    ds.add({one:-10, two:-11, three:-12});
+    ok(_.isEqual(view.column('three').data, [9,12]), 'adding one line to dataset adds one to view');
+  });
+
 
   test("Using string syntax for columns", function() {
     var ds = Util.baseSample();
