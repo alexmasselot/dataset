@@ -200,7 +200,7 @@
           // existing row to update and now need to just add a new
           // one. Use the delta's changed properties as the new row
           // if it passes the filter.
-          if (this.filter.rows && this.filter.rows(d.changed)){
+          if (this.filter.rows && this.filter.rows(d.changed)) {
             this._add(d.changed);  
             eventType = "add";
           }
