@@ -200,7 +200,7 @@
           // existing row to update and now need to just add a new
           // one. Use the delta's changed properties as the new row
           // if it passes the filter.
-          if (this.filter.rows && this.filter.rows(d.changed)) {
+          if (this.filter.rows && this.filter.rows(d.changed)){
             this._add(d.changed);  
             eventType = "add";
           }
@@ -519,8 +519,8 @@
       _.each(row, function(value, key) {
         var column = this.column(key);
 
-        //tried to catch that at the _sync method level, but without much success
-        if(column === undefined){
+        //tried to catch that at the _synv function 
+        if(typeof column === 'undefined'){
           return;
         }
 
