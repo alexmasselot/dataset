@@ -257,22 +257,6 @@
     ok(_.isEqual(view.column('three').data, [9,12]), 'adding one line to dataset flushes it to the to view');
    });
 
-
-  test("derived view, filtered on reported column, adding a line - issue 207", function() {
-    var ds = Util.baseSyncingSample();
-    
-    var view = ds.where({
-      columns:['three'],
-      rows:function(row){
-        return row.three>8;
-      }
-    });
-
-    ds.add({one:10, two:11, three:12});
-    ds.add({one:-10, two:-11, three:-12});
-    ok(_.isEqual(view.column('three').data, [9,12]), 'adding one line to dataset adds one to view');
-  });
-   
   test("derived view, filtered on ureported column, adding a line - issue 207", function() {
     var ds = Util.baseSyncingSample();
     
