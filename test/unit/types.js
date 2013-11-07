@@ -2,7 +2,7 @@
   
   var Dataset = global.Miso.Dataset;
 
-  var numbers = ['123', '0.34', '.23'];
+  var numbers = ['123', '0.34', '.23', '1.23e-2', '1.23e2'];
   var not_numbers = [null, NaN,undefined];
 
 
@@ -45,7 +45,7 @@
 
 
   test("Coerce number type", function() {
-    var coerced = [123, 0.34, 0.23];
+    var coerced = [123, 0.34, 0.23, 0.0123, 123];
     _.each(numbers, function(num, i) {
       equals(Dataset.types.number.coerce(num), coerced[i], "Should return true for a number");
     });

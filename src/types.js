@@ -109,7 +109,7 @@
 
     number : {  
       name : "number",
-      regexp : /^\s*[\-\.]?[0-9]+([\.][0-9]+)?\s*$/,
+      regexp : /^\s*[\-\.]?[0-9]+([\.][0-9]+)?([eE]\-?\d+)?\s*$/,
       coerce : function(v) {
         var cv = +v;
         if (_.isNull(v) || typeof v === "undefined" || _.isNaN(cv)) {
